@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TaskapiApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(TaskapiApplication.class, args);
+		System.out.println("Teste");
 	}
 
 }

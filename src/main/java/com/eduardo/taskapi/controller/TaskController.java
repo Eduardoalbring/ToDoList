@@ -12,8 +12,11 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
-    @Autowired
-    private TaskRepository repository;
+    private final TaskRepository repository;
+
+    public TaskController(TaskRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping
     public ResponseEntity<List<Task>> findAll() {
