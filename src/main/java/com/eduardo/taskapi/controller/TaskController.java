@@ -22,4 +22,32 @@ public class TaskController {
     public ResponseEntity<List<Task>> findAll() {
         return ResponseEntity.ok(repository.findAll());
     }
+
+    @PostMapping
+    public Task create(@RequestBody Task task) {
+        return repository.save(task);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody Task taskDetails) {
+
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task não encontrada"));
+
+        task.setTitle(taskDetails.getTitle());
+        task.setCompleted(taskDetails.isCompleted());
+
+        return ResponseEntity.ok(repository.save(task));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task não encontrada"));
+
+        repository.delete(task);
+
+        return ResponseEntity.noContent().build();
+    }
 }
